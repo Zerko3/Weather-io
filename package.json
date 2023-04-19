@@ -1,0 +1,14 @@
+{
+  "name": "projekt_elektronsko_poslovanje",
+  "version": "1.0.0",
+  "description": "Projektna naloga za Elektronsko poslovanje",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Zan",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
