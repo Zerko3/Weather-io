@@ -27,7 +27,11 @@
             type="text"
             placeholder="Input the location..."
           />
-          <input class="aside__input--box__user--input--btn" type="submit" />
+          <input
+            class="aside__input--box__user--input--btn"
+            type="submit"
+            value="+"
+          />
         </form>
       </div>
       <div class="aside__output--box">
@@ -67,7 +71,26 @@
       </div>
     </aside>
     <main>
-      <section id="weather-section"></section>
+      <section id="weather-section">
+        <div class="weather-section--navigation">
+          <div class="weather-section--navigation--links--box">
+            <a class="weather-section--navigation--link" href="#">Today</a>
+            <a class="weather-section--navigation--link" href="#">Week</a>
+          </div>
+          <div class="weather-section--navigation--temperature__type--box">
+            <a
+              class="weather-section--navigation--temperature__type--box--temp"
+              href="#"
+              >&#8451;</a
+            >
+            <a
+              class="weather-section--navigation--temperature__type--box--temp"
+              href="#"
+              >&#8457;</a
+            >
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </html>
