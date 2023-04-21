@@ -1,18 +1,15 @@
-*,
-*::after,
-*::before {
+*, :after, :before {
   margin: auto 0;
 }
 
 :root {
-  font-size: 62.5%;
-  font-family: "Roboto", sans-serif;
-  overflow: hidden;
-
   --white-color: #fff;
   --darker-white-color: #f7f7f7;
   --gray-color: #333;
   --darker-gray-color: #272f3c;
+  font-family: Roboto, sans-serif;
+  font-size: 62.5%;
+  overflow: hidden;
 }
 
 body {
@@ -25,119 +22,111 @@ main {
   width: 100%;
 }
 
-/* ----------------------------------------------- */
-/* -------------- Aside section ------------------ */
-/* ----------------------------------------------- */
-
 #aside {
   background-color: var(--white-color);
   width: 15vw;
   height: 100%;
-  padding: 2.4rem 4.8rem;
   border: none;
   border-top-right-radius: 11px;
+  padding: 2.4rem 4.8rem;
 }
 
 .aside__input--box {
-  display: flex;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
   margin-bottom: 4.8rem;
+  display: flex;
 }
 
 .aside__input--box__user--input {
   background-color: var(--darker-white-color);
+  height: 2rem;
   border: none;
   border-radius: 11px;
-  height: 2rem;
 }
 
 .aside__input--box__user--input--btn {
-  border-radius: 50%;
-  border: none;
   height: 2rem;
   width: 2rem;
+  border: none;
+  border-radius: 50%;
 }
 
 .aside__output--box {
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .aside__output--box__img--box {
-  display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
+  align-items: flex-start;
   gap: 6.4rem;
+  display: flex;
 }
 
 .aside__output--box__img--box__text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .aside__output--box__img--box__icon i {
-  font-size: calc(15.8rem + 2vh);
   color: var(--gray-color);
+  font-size: calc(15.8rem + 2vh);
 }
 
 .aside__output--box__img--box__text__degrees {
+  color: var(--gray-color);
   font-size: 6.2rem;
   font-weight: 300;
-  color: var(--gray-color);
 }
 
 .aside__output--box__img--box__text__location--box {
-  display: flex;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 3.2rem;
+  display: flex;
 }
 
 .aside__output--box__img--box__text__degrees {
   margin-bottom: 1rem;
 }
 
-.aside__output--box__img--box__text__location--box span,
-.aside__output--box__img--box__text__weather_info--box span {
-  font-size: 1.6rem;
+.aside__output--box__img--box__text__location--box span, .aside__output--box__img--box__text__weather_info--box span {
   color: var(--gray-color);
+  font-size: 1.6rem;
 }
 
 .aside__output--box__img--box__text__weather_info--box {
-  display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
+  align-items: flex-start;
+  display: flex;
   position: absolute;
   bottom: 10%;
 }
 
-/* ----------------------------------------------- */
-/* -------------- Main section ------------------ */
-/* ----------------------------------------------- */
-
 #weather-section {
-  padding: 2.4rem 4.8rem;
   height: 100vh;
   background-color: var(--darker-white-color);
+  padding: 2.4rem 4.8rem;
 }
 
 .weather-section--navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
 }
 
-.weather-section--navigation--links--box a,
-.weather-section--navigation--temperature__type--box a {
-  font-size: 1.6rem;
+.weather-section--navigation--links--box a, .weather-section--navigation--temperature__type--box a {
   color: var(--gray-color);
+  font-size: 1.6rem;
 }
+
+/*# sourceMappingURL=index.4df8691d.css.map */
