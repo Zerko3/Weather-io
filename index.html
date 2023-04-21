@@ -22,8 +22,12 @@
     <aside id="aside">
       <div class="aside__input--box">
         <form action="#">
-          <input type="text" placeholder="Input the location" />
-          <input type="submit" />
+          <input
+            class="aside__input--box__user--input"
+            type="text"
+            placeholder="Input the location..."
+          />
+          <input class="aside__input--box__user--input--btn" type="submit" />
         </form>
       </div>
       <div class="aside__output--box">
@@ -45,21 +49,25 @@
             <div class="aside__output--box__img--box__text__weather_info--box">
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather-type-one"
-                >Mostly sunny</span
+              >
+                <i class="fa-solid fa-cloud-sun"></i>Mostly sunny</span
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
                 >Rain chance 10%</span
               >
-              <div
+              <span
                 class="aside__output--box__img--box__text__weather_info--box__location"
               >
                 London
-              </div>
+              </span>
             </div>
           </div>
         </div>
       </div>
     </aside>
+    <main>
+      <section id="weather-section"></section>
+    </main>
   </body>
 </html>
