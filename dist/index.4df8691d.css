@@ -22,6 +22,10 @@ main {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 #aside {
   background-color: var(--white-color);
   width: 15vw;
@@ -40,7 +44,7 @@ main {
 
 .aside__input--box__user--input {
   background-color: var(--darker-white-color);
-  height: 2rem;
+  height: 3rem;
   border: none;
   border-radius: 11px;
 }
@@ -124,9 +128,41 @@ main {
   display: flex;
 }
 
+.weather-section--navigation--temperature__type--box, .weather-section--navigation--links--box {
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
 .weather-section--navigation--links--box a, .weather-section--navigation--temperature__type--box a {
-  color: var(--gray-color);
+  cursor: pointer;
   font-size: 1.6rem;
+}
+
+.weather-section--navigation--links--box a:link, .weather-section--navigation--links--box a:visited {
+  color: var(--gray-color);
+  transition: all .1s;
+}
+
+.weather-section--navigation--links--box a:hover, .weather-section--navigation--links--box a:active {
+  color: var(--darker-gray-color);
+  border-bottom: 1px solid var(--darker-gray-color);
+}
+
+.weather-section--navigation--temperature__type--box a:link, .weather-section--navigation--temperature__type--box a:visited {
+  background-color: var(--white-color);
+  color: var(--gray-color);
+  border: none;
+  border-radius: 50%;
+  align-items: center;
+  padding: .8rem;
+  transition: all .35s;
+}
+
+.weather-section--navigation--temperature__type--box a:hover, .weather-section--navigation--temperature__type--box a:active {
+  background-color: var(--darker-gray-color);
+  color: var(--darker-white-color);
 }
 
 /*# sourceMappingURL=index.4df8691d.css.map */
