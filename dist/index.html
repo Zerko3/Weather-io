@@ -16,8 +16,8 @@
     <aside id="aside">
       <div class="aside__input--box">
         <form action="#">
-          <input type="text" placeholder="Input the location">
-          <input type="submit">
+          <input class="aside__input--box__user--input" type="text" placeholder="Input the location...">
+          <input class="aside__input--box__user--input--btn" type="submit">
         </form>
       </div>
       <div class="aside__output--box">
@@ -33,15 +33,22 @@
             </div>
 
             <div class="aside__output--box__img--box__text__weather_info--box">
-              <span class="aside__output--box__img--box__text__weather_info--box--weather-type-one">Mostly sunny</span>
+              <span class="aside__output--box__img--box__text__weather_info--box--weather-type-one">
+                <i class="fa-solid fa-cloud-sun"></i>Mostly sunny</span>
               <span class="aside__output--box__img--box__text__weather_info--box--weather--type-two">Rain chance 10%</span>
-              <div class="aside__output--box__img--box__text__weather_info--box__location">
+              <span class="aside__output--box__img--box__text__weather_info--box__location">
                 London
+              </span>
+              <div class="aside__output--box__img--box__text__weather_info--box">
+                <img src="/prokektna_img_place_holder_img.d9362d88.jpg" alt="placeholer for img">
               </div>
             </div>
           </div>
         </div>
       </div>
     </aside>
+    <main>
+      <section id="weather-section"></section>
+    </main>
   </body>
 </html>

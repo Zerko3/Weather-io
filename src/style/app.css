@@ -1,3 +1,123 @@
-:root {
-  font-family: "Roboto", sans-serif;
+*,
+*::after,
+*::before {
+  margin: auto 0;
 }
+
+:root {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+
+  --white-color: #fff;
+  --darker-white-color: #f7f7f7;
+  --gray-color: #333;
+  --darker-gray-color: #272f3c;
+}
+
+body {
+  height: 100vh;
+  width: auto;
+  display: flex;
+}
+
+/* ----------------------------------------------- */
+/* -------------- Aside section ------------------ */
+/* ----------------------------------------------- */
+
+#aside {
+  background-color: var(--white-color);
+  width: 15%;
+  height: 100%;
+  padding: 2.4rem 4.8rem;
+  border: none;
+  border-top-right-radius: 11px;
+}
+
+.aside__input--box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 3.2rem;
+}
+
+.aside__input--box__user--input {
+  background-color: var(--darker-white-color);
+  border: none;
+  border-radius: 11px;
+  height: calc(1rem + 2vh);
+}
+
+.aside__input--box__user--input--btn {
+  border-radius: 50%;
+  border: none;
+  height: calc(1rem + 2vh);
+}
+
+.aside__output--box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aside__output--box__img--box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6.4rem;
+}
+
+.aside__output--box__img--box__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.aside__output--box__img--box__icon i {
+  font-size: calc(15.8rem + 2vh);
+  color: var(--gray-color);
+}
+
+.aside__output--box__img--box__text__degrees {
+  font-size: 6.2rem;
+  font-weight: 300;
+}
+
+.aside__output--box__img--box__text__location--box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 3.2rem;
+}
+
+.aside__output--box__img--box__text__degrees {
+  margin-bottom: 1rem;
+}
+
+.aside__output--box__img--box__text__location--box span,
+.aside__output--box__img--box__text__weather_info--box span {
+  font-size: 1.8rem;
+}
+
+.aside__output--box__img--box__text__weather_info--box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  /* position: absolute;
+  bottom: 20%; */
+}
+
+/* ----------------------------------------------- */
+/* -------------- Main section ------------------ */
+/* ----------------------------------------------- */
+
+/* #weather-section {
+  width: 50vw;
+  height: 100vh;
+  background-color: var(--darker-white-color);
+} */
