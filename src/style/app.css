@@ -13,6 +13,10 @@
   --darker-white-color: #f7f7f7;
   --gray-color: #333;
   --darker-gray-color: #272f3c;
+  --sun--color: #ffb703;
+  --rain--color: #219ebc;
+  --cloud--color: #6c757d;
+  --hill-color: #606c38;
 }
 
 body {
@@ -31,6 +35,30 @@ main {
 
 a {
   text-decoration: none;
+}
+
+.fa-cloud {
+  color: var(--cloud--color) !important;
+}
+
+.fa-temperature-low {
+  color: var(--darker-gray-color) !important;
+}
+
+.fa-wind {
+  color: var(--rain--color) !important;
+}
+
+.fa-sun {
+  color: var(--sun--color) !important;
+}
+
+.fa-moon {
+  color: var(--darker-gray-color) !important;
+}
+
+.fa-mountain {
+  color: var(--hill-color) !important;
 }
 
 /* ----------------------------------------------- */
@@ -91,7 +119,7 @@ a {
 
 .aside__output--box__img--box__icon i {
   font-size: calc(15.8rem + 2vh);
-  color: var(--gray-color);
+  color: var(--sun--color);
 }
 
 .aside__output--box__img--box__text__degrees {
@@ -131,6 +159,10 @@ a {
 /* -------------- Main section ------------------ */
 /* ----------------------------------------------- */
 
+/* ----------------------------------------------- */
+/* -------------- Navigation section ------------- */
+/* ----------------------------------------------- */
+
 #weather-section {
   padding: 2.4rem 4.8rem;
   height: 100vh;
@@ -142,6 +174,7 @@ a {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 3.2rem;
 }
 
 .weather-section--navigation--temperature__type--box,
@@ -185,4 +218,105 @@ a {
 .weather-section--navigation--temperature__type--box a:active {
   background-color: var(--darker-gray-color);
   color: var(--darker-white-color);
+}
+
+/* ----------------------------------------------- */
+/* -------------- Weather day section ------------ */
+/* ----------------------------------------------- */
+
+.weather-section--weather__display--box {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.weather-section--weather__display--box--weather__day--box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: var(--white-color);
+  padding: 1.2rem 2.4rem;
+  border: none;
+  border-radius: 11px;
+}
+
+.weather__day__morning--num--box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.weather-section--weather__display--box--weather__day--box h2,
+.weather-section--weather__display--box--weather__day--box span {
+  font-size: 1.6rem;
+  color: var(--gray-color);
+}
+.weather-section--weather__display--box--weather__day--box i {
+  font-size: 4.4rem;
+  color: var(--gray-color);
+}
+
+/* ----------------------------------------------- */
+/* ---------- Weather highlights section --------- */
+/* ----------------------------------------------- */
+
+.weather-section--weather__highlights {
+  height: 100%;
+  width: 100%;
+}
+
+.heading--primary {
+  font-size: 3rem;
+  margin: 3rem 0;
+  color: var(--gray-color);
+}
+
+.weather-section--weather__highlights--box {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.weather-highlight--box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: var(--white-color);
+  padding: 2.4rem 4.8rem;
+  border: none;
+  border-radius: 11px;
+  height: 80%;
+}
+
+.weather-highlight--box__inner-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.weather-highlight--box h3,
+.weather-highlight--box span {
+  color: var(--gray-color);
+  font-size: 1.6rem;
+}
+
+.weather-highlight--box h3 {
+  align-self: flex-start;
+}
+
+.weather-highlight--box i {
+  font-size: 4.4rem;
+}
+
+.weather-highlight--box__inner-flex i {
+  font-size: 3rem;
+  text-align: center;
 }
