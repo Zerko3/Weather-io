@@ -14,15 +14,6 @@
 
 body {
   height: 100vh;
-<<<<<<< HEAD
-  width: auto;
-  display: flex;
-}
-
-#aside {
-  background-color: var(--white-color);
-  width: 15%;
-=======
   width: 100vw;
   display: flex;
 }
@@ -38,7 +29,6 @@ a {
 #aside {
   background-color: var(--white-color);
   width: 15vw;
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
   height: 100%;
   border: none;
   border-top-right-radius: 11px;
@@ -48,32 +38,20 @@ a {
 .aside__input--box {
   justify-content: flex-start;
   align-items: center;
-<<<<<<< HEAD
-  margin-bottom: 3.2rem;
-=======
   margin-bottom: 4.8rem;
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
   display: flex;
 }
 
 .aside__input--box__user--input {
   background-color: var(--darker-white-color);
-<<<<<<< HEAD
-  height: calc(1rem + 2vh);
-=======
   height: 3rem;
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
   border: none;
   border-radius: 11px;
 }
 
 .aside__input--box__user--input--btn {
-<<<<<<< HEAD
-  height: calc(1rem + 2vh);
-=======
   height: 2rem;
   width: 2rem;
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
   border: none;
   border-radius: 50%;
 }
@@ -106,10 +84,7 @@ a {
 }
 
 .aside__output--box__img--box__text__degrees {
-<<<<<<< HEAD
-=======
   color: var(--gray-color);
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
   font-size: 6.2rem;
   font-weight: 300;
 }
@@ -127,12 +102,8 @@ a {
 }
 
 .aside__output--box__img--box__text__location--box span, .aside__output--box__img--box__text__weather_info--box span {
-<<<<<<< HEAD
-  font-size: 1.8rem;
-=======
   color: var(--gray-color);
   font-size: 1.6rem;
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
 }
 
 .aside__output--box__img--box__text__weather_info--box {
@@ -140,8 +111,6 @@ a {
   justify-content: center;
   align-items: flex-start;
   display: flex;
-<<<<<<< HEAD
-=======
   position: absolute;
   bottom: 10%;
 }
@@ -194,7 +163,6 @@ a {
 .weather-section--navigation--temperature__type--box a:hover, .weather-section--navigation--temperature__type--box a:active {
   background-color: var(--darker-gray-color);
   color: var(--darker-white-color);
->>>>>>> 6889fd30c2e74dc77ee5765deee56978f5475c04
 }
 
 /*# sourceMappingURL=index.4df8691d.css.map */
