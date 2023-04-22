@@ -557,6 +557,54 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
+// TODO:
+// 1. API key zavaruj
+// 2. Naredi input za lokacijo v linku
+var _modelJs = require("./model.js");
+"use strict";
+console.log(_modelJs.getWeatherApi("London", 1));
+
+},{"./model.js":"Y4A21"}],"Y4A21":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
+"use strict";
+const _KEY = "61956096fab848c5a78133732232204";
+const getWeatherApi = async function(location, days) {
+    const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=no&alerts=no`);
+    const json = await data.json();
+    return json;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
 
