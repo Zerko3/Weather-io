@@ -557,9 +557,6 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
-// TODO:
-// 1. API key zavaruj
-// 2. Naredi input za lokacijo v linku
 var _modelJs = require("./model.js");
 "use strict";
 console.log(_modelJs.getWeatherApi("London", 1));
@@ -571,9 +568,21 @@ parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
 "use strict";
 const _KEY = "61956096fab848c5a78133732232204";
 const getWeatherApi = async function(location, days) {
-    const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=no&alerts=no`);
+    const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=yes&alerts=no`);
     const json = await data.json();
-    return json;
+    console.log(json);
+    return weatherObject = {
+        location: json.location.name,
+        weatherCondition: json.current.condition.text,
+        dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
+        indexUV: json.current.uv,
+        windStatus: json.current.wind_kph,
+        sunRise: json.forecast.forecastday[0].astro.sunrise,
+        sunSet: json.forecast.forecastday[0].astro.sunset,
+        humidity: json.current.humidity,
+        visibility: json.current.vis_km,
+        airQuality: json.current.air_quality["us-epa-index"]
+    };
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
