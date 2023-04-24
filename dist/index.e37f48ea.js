@@ -560,18 +560,26 @@ function hmrAccept(bundle, id) {
 var _modelJs = require("./model.js");
 "use strict";
 console.log(_modelJs.getWeatherApi("London", 1));
+console.log(_modelJs.state);
+// TODO:
+// 1. Class kateri prejme input usera in calla API v modelu
+// 2. Pridobi podatke od modela in calla Class v View da rendera HTML
+// DOM ELEMENTS
+const userInputField = document.querySelector(".aside__input--box__user--input");
 
 },{"./model.js":"Y4A21"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "state", ()=>state);
+parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
 parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
 "use strict";
 const _KEY = "61956096fab848c5a78133732232204";
-const getWeatherApi = async function(location, days) {
-    const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=yes&alerts=no`);
-    const json = await data.json();
-    console.log(json);
-    return weatherObject = {
+const state = {
+    weatherObject: {}
+};
+const weatherObjectFunction = function(json) {
+    return {
         location: json.location.name,
         weatherCondition: json.current.condition.text,
         dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
@@ -583,6 +591,15 @@ const getWeatherApi = async function(location, days) {
         visibility: json.current.vis_km,
         airQuality: json.current.air_quality["us-epa-index"]
     };
+};
+const getWeatherApi = async function(location, days) {
+    try {
+        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=yes&alerts=no`);
+        const json = await data.json();
+        state.weatherData = weatherObjectFunction(json);
+    } catch (error) {
+        console.error(`${error} this is the error 🥲.`);
+    }
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
