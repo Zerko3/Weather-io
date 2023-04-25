@@ -557,48 +557,90 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _modelJs = require("./model.js");
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _addAsideMarkupJs = require("./views/addAsideMarkup.js");
+var _addAsideMarkupJsDefault = parcelHelpers.interopDefault(_addAsideMarkupJs);
 "use strict";
-console.log(_modelJs.getWeatherApi("London", 1));
-console.log(_modelJs.state);
-// TODO:
-// 1. Class kateri prejme input usera in calla API v modelu
-// 2. Pridobi podatke od modela in calla Class v View da rendera HTML
 // DOM ELEMENTS
-const userInputField = document.querySelector(".aside__input--box__user--input");
+const _parentElement = document.querySelector(".weather-section--weather__display--box");
+const _userForm = document.querySelector(".user__input");
+// FUNCTION
+// FUNCTION USER INPUT
+const userInputFunction = async function() {
+    const id1 = document.querySelector(".aside__input--box__user--input").value;
+    if (id1 === "") return;
+    await _modelJs.getWeatherApi(id1);
+    (0, _viewJsDefault.default).setData(_modelJs.state); // set the weather data as a static property of the Weather class
+    console.log(_modelJs.state);
+};
+const constrolAddWeatherData = function() {
+    (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
+};
+// TODO:
+// 1. Error handling
+const renderErrorFunction = function() {
+    const _errorMessage = "We could not find that location. Please try another one!";
+    const errorMarkup = `<h1>${_errorMessage}</h1>`;
+    _parentElement.insertAdjacentHTML("afterbegin", errorMarkup);
+};
+const displayErrorOnScreen = async function() {
+    try {
+        await _modelJs.getWeatherApi(id);
+        console.log(_modelJs.state);
+    } catch (error) {
+        console.error(`🥲 ERROR IS WORKING`, error);
+        renderErrorFunction(error);
+    }
+};
+// APP INITIALIZATION
+const init = function() {
+    _userForm.addEventListener("submit", userInputFunction);
+    (0, _addAsideMarkupJsDefault.default).userInput(constrolAddWeatherData);
+};
+init();
 
-},{"./model.js":"Y4A21"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addAsideMarkup.js":"4wDdN"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
-parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
 parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
+parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
 "use strict";
 const _KEY = "61956096fab848c5a78133732232204";
-const state = {
-    weatherObject: {}
-};
-const weatherObjectFunction = function(json) {
-    return {
-        location: json.location.name,
-        weatherCondition: json.current.condition.text,
-        dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
-        indexUV: json.current.uv,
-        windStatus: json.current.wind_kph,
-        sunRise: json.forecast.forecastday[0].astro.sunrise,
-        sunSet: json.forecast.forecastday[0].astro.sunset,
-        humidity: json.current.humidity,
-        visibility: json.current.vis_km,
-        airQuality: json.current.air_quality["us-epa-index"]
-    };
-};
-const getWeatherApi = async function(location, days) {
+let state = {};
+const getWeatherApi = async function(id) {
     try {
-        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${location}&days=${days}&aqi=yes&alerts=no`);
+        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=1&aqi=yes&alerts=no`);
         const json = await data.json();
-        state.weatherData = weatherObjectFunction(json);
+        state = weatherObjectFunction(json);
+        return weatherObjectFunction(json);
     } catch (error) {
         console.error(`${error} this is the error 🥲.`);
+        throw error;
+    }
+};
+const weatherObjectFunction = function(json) {
+    try {
+        return {
+            id: json.location.name,
+            location: json.location.name,
+            temerature: json.current.temp_c,
+            weatherCondition: json.current.condition.text,
+            dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
+            indexUV: json.current.uv,
+            windStatus: json.current.wind_kph,
+            sunRise: json.forecast.forecastday[0].astro.sunrise,
+            sunSet: json.forecast.forecastday[0].astro.sunset,
+            humidity: json.current.humidity,
+            visibility: json.current.vis_km,
+            airQuality: json.current.air_quality["us-epa-index"]
+        };
+    } catch (error) {
+        console.error(error, `HEREEEEEEEEEEEEEE`);
+        throw error;
     }
 };
 
@@ -632,6 +674,85 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
+},{}],"ky8MP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+"use strict";
+class Weather {
+    _userForm = document.querySelector(".user__input");
+    static data = {};
+    constructor(){}
+    static setData(data) {
+        Weather.data = data; // set the data as the static property of the class
+        console.log(data);
+    }
+    static getData() {
+        return Weather.data; // get the weather data from the static property of the class
+    }
+}
+exports.default = Weather;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4wDdN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("../view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class AddAsideMarkup extends (0, _viewJsDefault.default) {
+    _asideElement = document.querySelector(".aside__input--box");
+    constructor(){
+        super();
+        let weatherData = (0, _viewJsDefault.default).getData(); // get the weather data from the Weather class
+        // use the weather data to generate HTML, etc.
+        console.log(weatherData);
+    }
+    userInput(handler) {
+        this._userForm.addEventListener("submit", (e)=>{
+            e.preventDefault();
+            handler(this.data);
+        });
+    }
+    _renderText(weatherData) {
+        console.log("Activated");
+        const html = `
+    <div class="aside__output--box__img--box">
+          <div class="aside__output--box__img--box__icon">
+            <i class="fa-regular fa-sun"></i>
+          </div>
+          <div class="aside__output--box__img--box__text">
+            <p class="aside__output--box__img--box__text__degrees">${weatherData.humidity}&#8451;</p>
+            <div class="aside__output--box__img--box__text__location--box">
+              <span class="aside__output--box__img--box__text__day"
+                >PLACEHOLDER</span
+              >
+              <span class="aside__output--box__img--box__text__hour"
+                >${weatherData.temerature}</span
+              >
+            </div>
+
+            <div class="aside__output--box__img--box__text__weather_info--box">
+              <span
+                class="aside__output--box__img--box__text__weather_info--box--weather-type-one"
+              >
+                <i class="fa-solid fa-cloud-sun"></i>Mostly sunny</span
+              >
+              <span
+                class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
+                >Rain chance ${weatherData.daily_chance_of_rain}</span
+              >
+              <span
+                class="aside__output--box__img--box__text__weather_info--box__location"
+              >
+                ${weatherData.location}
+              </span>
+            </div>
+          </div>
+        </div>
+    `;
+        this._asideElement.insertAdjacentHTML("afterbegin", html);
+    }
+}
+exports.default = new AddAsideMarkup();
+
+},{"../view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
 
 //# sourceMappingURL=index.e37f48ea.js.map
