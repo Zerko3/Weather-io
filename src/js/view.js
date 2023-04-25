@@ -1,22 +1,18 @@
 'use strict';
 
 export default class Weather {
-  constructor(data) {
-    this.data = data;
+  _userForm = document.querySelector('.user__input');
+
+  static data = {};
+
+  constructor() {}
+
+  static setData(data) {
+    Weather.data = data; // set the data as the static property of the class
+    console.log(data);
   }
 
-  // Call specific child Class with _generateMarkup() inside
-  _render(data) {
-    if (!data) return;
-
-    const markup = this._generateMarkup();
-
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  _displayError(message = this._errorMessage) {
-    const errorMarkup = `<p>${message}</p>`;
-
-    this._parentElement.insertAdjacentHTML('afterbegin', errorMarkup);
+  static getData() {
+    return Weather.data; // get the weather data from the static property of the class
   }
 }
