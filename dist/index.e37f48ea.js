@@ -600,7 +600,7 @@ const init = function() {
 };
 init();
 
-},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addHighlights.js":"gKboZ"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
