@@ -7,11 +7,11 @@ export let state = {};
 export const getWeatherApi = async function (id) {
   try {
     const data = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=1&aqi=yes&alerts=no`
+      `http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`
     );
 
     const json = await data.json();
-
+    console.log(json);
     state = weatherObjectFunction(json);
 
     return weatherObjectFunction(json);
@@ -26,6 +26,7 @@ export const weatherObjectFunction = function (json) {
     return {
       id: json.location.name,
       location: json.location.name,
+      time: json.location.localtime,
       temerature: json.current.temp_c,
       weatherCondition: json.current.condition.text,
       dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
@@ -36,6 +37,7 @@ export const weatherObjectFunction = function (json) {
       humidity: json.current.humidity,
       visibility: json.current.vis_km,
       airQuality: json.current.air_quality['us-epa-index'],
+      daysInTheWeek: json.forecast.forecastday,
     };
   } catch (error) {
     console.error(error, `HEREEEEEEEEEEEEEE`);

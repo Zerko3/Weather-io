@@ -13,8 +13,7 @@ class AddAsideMarkup extends Weather {
   ];
 
   _date = new Date();
-  _hour = new Date().getHours();
-  _minutes = new Date().getMinutes();
+
   constructor() {
     super();
   }
@@ -41,7 +40,7 @@ class AddAsideMarkup extends Weather {
                 >${this._daysInAWeek[this._date.getDay()]}</span
               >
               <span class="aside__output--box__img--box__text__hour"
-                >${this._hour}:${this._minutes}</span
+                >${data.time.split(' ').slice(1)}</span
               >
             </div>
 

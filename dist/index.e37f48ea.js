@@ -565,6 +565,8 @@ var _addAsideMarkupJs = require("./views/addAsideMarkup.js");
 var _addAsideMarkupJsDefault = parcelHelpers.interopDefault(_addAsideMarkupJs);
 var _addHighlightsJs = require("./views/addHighlights.js");
 var _addHighlightsJsDefault = parcelHelpers.interopDefault(_addHighlightsJs);
+var _addDaysJs = require("./views/addDays.js");
+var _addDaysJsDefault = parcelHelpers.interopDefault(_addDaysJs);
 "use strict";
 // DOM ELEMENTS
 const _parentElement = document.querySelector(".weather-section--weather__display--box");
@@ -577,6 +579,7 @@ const userInputFunction = async function() {
     (0, _viewJsDefault.default).setData(_modelJs.state);
     (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
     (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
+    (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
 };
 // TODO:
 // 1. Error handling
@@ -600,7 +603,11 @@ const init = function() {
 };
 init();
 
+<<<<<<< HEAD
 },{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
+=======
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addDays.js":"9OHQ7"}],"Y4A21":[function(require,module,exports) {
+>>>>>>> 4ed0878a0d52b861c005ba2d594499e6d1933505
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
@@ -611,8 +618,9 @@ const _KEY = "61956096fab848c5a78133732232204";
 let state = {};
 const getWeatherApi = async function(id) {
     try {
-        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=1&aqi=yes&alerts=no`);
+        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
         const json = await data.json();
+        console.log(json);
         state = weatherObjectFunction(json);
         return weatherObjectFunction(json);
     } catch (error) {
@@ -625,6 +633,7 @@ const weatherObjectFunction = function(json) {
         return {
             id: json.location.name,
             location: json.location.name,
+            time: json.location.localtime,
             temerature: json.current.temp_c,
             weatherCondition: json.current.condition.text,
             dailyChanceOfRain: json.forecast.forecastday[0].day.daily_chance_of_rain,
@@ -634,7 +643,8 @@ const weatherObjectFunction = function(json) {
             sunSet: json.forecast.forecastday[0].astro.sunset,
             humidity: json.current.humidity,
             visibility: json.current.vis_km,
-            airQuality: json.current.air_quality["us-epa-index"]
+            airQuality: json.current.air_quality["us-epa-index"],
+            daysInTheWeek: json.forecast.forecastday
         };
     } catch (error) {
         console.error(error, `HEREEEEEEEEEEEEEE`);
@@ -705,8 +715,6 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
         "Saturday"
     ];
     _date = new Date();
-    _hour = new Date().getHours();
-    _minutes = new Date().getMinutes();
     constructor(){
         super();
     }
@@ -729,7 +737,7 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
                 >${this._daysInAWeek[this._date.getDay()]}</span
               >
               <span class="aside__output--box__img--box__text__hour"
-                >${this._hour}:${this._minutes}</span
+                >${data.time.split(" ").slice(1)}</span
               >
             </div>
 
@@ -814,6 +822,88 @@ class WeatherHighlights extends (0, _viewJsDefault.default) {
 }
 exports.default = new WeatherHighlights();
 
-},{"../view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
+},{"../view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9OHQ7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class AddDaysOfTheWeek extends (0, _viewDefault.default) {
+    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
+    constructor(){
+        super();
+    }
+    generateMarkupWeekDays(data) {
+        const html = `
+    <div
+    class="weather-section--weather__display--box--weather__day--box">
+    <h2>Monday</h2>
+    <i class="fa-solid fa-cloud"></i>
+    <div class="weather__day__morning--num--box">
+      <span class="weather__day__morning--num">${data.daysInTheWeek[1].day.mintemp_c}&#8451;</span>
+      <span class="weather__day__evening--num">${data.daysInTheWeek[1].day.maxtemp_c}&#8451;</span>
+    </div>
+  </div>
+
+  <div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Tuesday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+    <span class="weather__day__morning--num">${data.daysInTheWeek[2].day.mintemp_c}&#8451;</span>
+    <span class="weather__day__evening--num">${data.daysInTheWeek[2].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Wednesday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+    <span class="weather__day__morning--num">${data.daysInTheWeek[3].day.mintemp_c}&#8451;</span>
+    <span class="weather__day__evening--num">${data.daysInTheWeek[3].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Thursday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.daysInTheWeek[4].day.mintemp_c}&#8451;</span>
+  <span class="weather__day__evening--num">${data.daysInTheWeek[4].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Friday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.daysInTheWeek[5].day.mintemp_c}&#8451;</span>
+  <span class="weather__day__evening--num">${data.daysInTheWeek[5].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Saturday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.daysInTheWeek[6].day.mintemp_c}&#8451;</span>
+  <span class="weather__day__evening--num">${data.daysInTheWeek[6].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>Sunday</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.daysInTheWeek[0].day.mintemp_c}&#8451;</span>
+  <span class="weather__day__evening--num">${data.daysInTheWeek[0].day.maxtemp_c}&#8451;</span>
+  </div>
+</div>
+    `;
+        this._weekDaysElement.insertAdjacentHTML("afterbegin", html);
+    }
+}
+exports.default = new AddDaysOfTheWeek();
+
+},{"../view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
 
 //# sourceMappingURL=index.e37f48ea.js.map
