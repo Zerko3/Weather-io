@@ -4,6 +4,7 @@ import * as model from './model.js';
 import weather from './view.js';
 import addAsideMarkup from './views/addAsideMarkup.js';
 import WeatherHighlights from './views/addHighlights.js';
+import addDays from './views/addDays.js';
 
 // DOM ELEMENTS
 
@@ -26,6 +27,8 @@ const userInputFunction = async function () {
   addAsideMarkup._renderText(model.state);
 
   WeatherHighlights.generateHighlightsMarkup(model.state);
+
+  addDays.generateMarkupWeekDays(model.state);
 };
 
 // TODO:
