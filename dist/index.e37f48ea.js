@@ -563,21 +563,20 @@ var _viewJs = require("./view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 var _addAsideMarkupJs = require("./views/addAsideMarkup.js");
 var _addAsideMarkupJsDefault = parcelHelpers.interopDefault(_addAsideMarkupJs);
+var _addHighlightsJs = require("./views/addHighlights.js");
+var _addHighlightsJsDefault = parcelHelpers.interopDefault(_addHighlightsJs);
 "use strict";
 // DOM ELEMENTS
 const _parentElement = document.querySelector(".weather-section--weather__display--box");
-const _userForm = document.querySelector(".user__input");
 // FUNCTION
 // FUNCTION USER INPUT
 const userInputFunction = async function() {
     const id1 = document.querySelector(".aside__input--box__user--input").value;
     if (id1 === "") return;
     await _modelJs.getWeatherApi(id1);
-    (0, _viewJsDefault.default).setData(_modelJs.state); // set the weather data as a static property of the Weather class
-    console.log(_modelJs.state);
-};
-const constrolAddWeatherData = function() {
+    (0, _viewJsDefault.default).setData(_modelJs.state);
     (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
+    (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
 };
 // TODO:
 // 1. Error handling
@@ -597,12 +596,11 @@ const displayErrorOnScreen = async function() {
 };
 // APP INITIALIZATION
 const init = function() {
-    _userForm.addEventListener("submit", userInputFunction);
-    (0, _addAsideMarkupJsDefault.default).userInput(constrolAddWeatherData);
+    (0, _addAsideMarkupJsDefault.default).userInput(userInputFunction);
 };
 init();
 
-},{"./model.js":"Y4A21","./view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addAsideMarkup.js":"4wDdN"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addHighlights.js":"gKboZ"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
@@ -683,12 +681,10 @@ class Weather {
     static data = {};
     constructor(){}
     static setData(data) {
-        Weather.data = data; // set the data as the static property of the class
-        console.log(data);
+        Weather.data = data;
+        console.log(this.data);
     }
-    static getData() {
-        return Weather.data; // get the weather data from the static property of the class
-    }
+    static async getData(data) {}
 }
 exports.default = Weather;
 
@@ -698,12 +694,21 @@ parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("../view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 class AddAsideMarkup extends (0, _viewJsDefault.default) {
-    _asideElement = document.querySelector(".aside__input--box");
+    _asideElement = document.querySelector(".aside__output--box");
+    _daysInAWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ];
+    _date = new Date();
+    _hour = new Date().getHours();
+    _minutes = new Date().getMinutes();
     constructor(){
         super();
-        let weatherData = (0, _viewJsDefault.default).getData(); // get the weather data from the Weather class
-        // use the weather data to generate HTML, etc.
-        console.log(weatherData);
     }
     userInput(handler) {
         this._userForm.addEventListener("submit", (e)=>{
@@ -711,21 +716,20 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
             handler(this.data);
         });
     }
-    _renderText(weatherData) {
-        console.log("Activated");
+    _renderText(data) {
         const html = `
     <div class="aside__output--box__img--box">
           <div class="aside__output--box__img--box__icon">
             <i class="fa-regular fa-sun"></i>
           </div>
           <div class="aside__output--box__img--box__text">
-            <p class="aside__output--box__img--box__text__degrees">${weatherData.humidity}&#8451;</p>
+            <p class="aside__output--box__img--box__text__degrees">${data.temerature}&#8451;</p>
             <div class="aside__output--box__img--box__text__location--box">
               <span class="aside__output--box__img--box__text__day"
-                >PLACEHOLDER</span
+                >${this._daysInAWeek[this._date.getDay()]}</span
               >
               <span class="aside__output--box__img--box__text__hour"
-                >${weatherData.temerature}</span
+                >${this._hour}:${this._minutes}</span
               >
             </div>
 
@@ -737,12 +741,12 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
-                >Rain chance ${weatherData.daily_chance_of_rain}</span
+                >Rain chance ${data.dailyChanceOfRain}</span
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box__location"
               >
-                ${weatherData.location}
+                ${data.location}
               </span>
             </div>
           </div>
@@ -752,6 +756,63 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
     }
 }
 exports.default = new AddAsideMarkup();
+
+},{"../view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gKboZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("../view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class WeatherHighlights extends (0, _viewJsDefault.default) {
+    _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
+    constructor(){
+        super();
+    }
+    generateHighlightsMarkup(data) {
+        const html = `
+      <h2 class="heading--primary">Today's highlights</h2>  
+      <div class="weather-section--weather__highlights--box">
+        <div class="weather-highlight--box">
+          <h3>UV index</h3>
+          <i class="fa-solid fa-temperature-low"></i>
+          <span>${data.indexUV}</span>
+        </div>
+        <div class="weather-highlight--box">
+          <h3>Wind Status</h3>
+          <i class="fa-solid fa-wind"></i>
+          <span>${data.windStatus} km/h</span>
+        </div>
+        <div class="weather-highlight--box">
+          <h3>Sunrise & Sunset</h3>
+          <div class="weather-highlight--box__inner-flex">
+            <i class="fa-regular fa-sun"></i> <span>${data.sunRise}</span>
+          </div>
+
+        <div class="weather-highlight--box__inner-flex">
+          <i class="fa-regular fa-moon"></i> <span>
+          ${data.sunSet}</span>
+        </div>
+      </div>
+      <div class="weather-highlight--box">
+        <h3>Humidity</h3>
+        <i class="fa-solid fa-temperature-low"></i>
+        <span>${data.humidity}%</span>
+      </div>
+      <div class="weather-highlight--box">
+        <h3>Visibility</h3>
+        <i class="fa-solid fa-mountain"></i>
+        <span>${data.visibility}km</span>
+      </div>
+      <div class="weather-highlight--box">
+        <h3>Air Quality</h3>
+        <i class="fa-solid fa-temperature-low"></i>
+        <span>${data.airQuality}</span>
+      </div>
+    </div>
+      `;
+        this._parentElementHighlights.insertAdjacentHTML("afterbegin", html);
+    }
+}
+exports.default = new WeatherHighlights();
 
 },{"../view.js":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
 

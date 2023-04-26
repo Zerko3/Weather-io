@@ -3,14 +3,13 @@
 import * as model from './model.js';
 import weather from './view.js';
 import addAsideMarkup from './views/addAsideMarkup.js';
+import WeatherHighlights from './views/addHighlights.js';
 
 // DOM ELEMENTS
 
 const _parentElement = document.querySelector(
   '.weather-section--weather__display--box'
 );
-
-const _userForm = document.querySelector('.user__input');
 
 // FUNCTION
 
@@ -21,12 +20,12 @@ const userInputFunction = async function () {
 
   if (id === '') return;
   await model.getWeatherApi(id);
-  weather.setData(model.state); // set the weather data as a static property of the Weather class
-  console.log(model.state);
-};
 
-const constrolAddWeatherData = function () {
+  weather.setData(model.state);
+
   addAsideMarkup._renderText(model.state);
+
+  WeatherHighlights.generateHighlightsMarkup(model.state);
 };
 
 // TODO:
@@ -52,7 +51,6 @@ const displayErrorOnScreen = async function () {
 // APP INITIALIZATION
 
 const init = function () {
-  _userForm.addEventListener('submit', userInputFunction);
-  addAsideMarkup.userInput(constrolAddWeatherData);
+  addAsideMarkup.userInput(userInputFunction);
 };
 init();
