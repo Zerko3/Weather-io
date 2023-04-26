@@ -1,12 +1,22 @@
 import Weather from '../view.js';
 class AddAsideMarkup extends Weather {
-  _asideElement = document.querySelector('.aside__input--box');
+  _asideElement = document.querySelector('.aside__output--box');
 
+  _daysInAWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  _date = new Date();
+  _hour = new Date().getHours();
+  _minutes = new Date().getMinutes();
   constructor() {
     super();
-    let weatherData = Weather.getData(); // get the weather data from the Weather class
-    // use the weather data to generate HTML, etc.
-    console.log(weatherData);
   }
 
   userInput(handler) {
@@ -16,22 +26,22 @@ class AddAsideMarkup extends Weather {
     });
   }
 
-  _renderText(weatherData) {
-    console.log('Activated');
-
+  _renderText(data) {
     const html = `
     <div class="aside__output--box__img--box">
           <div class="aside__output--box__img--box__icon">
             <i class="fa-regular fa-sun"></i>
           </div>
           <div class="aside__output--box__img--box__text">
-            <p class="aside__output--box__img--box__text__degrees">${weatherData.humidity}&#8451;</p>
+            <p class="aside__output--box__img--box__text__degrees">${
+              data.temerature
+            }&#8451;</p>
             <div class="aside__output--box__img--box__text__location--box">
               <span class="aside__output--box__img--box__text__day"
-                >PLACEHOLDER</span
+                >${this._daysInAWeek[this._date.getDay()]}</span
               >
               <span class="aside__output--box__img--box__text__hour"
-                >${weatherData.temerature}</span
+                >${this._hour}:${this._minutes}</span
               >
             </div>
 
@@ -43,12 +53,12 @@ class AddAsideMarkup extends Weather {
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
-                >Rain chance ${weatherData.daily_chance_of_rain}</span
+                >Rain chance ${data.dailyChanceOfRain}</span
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box__location"
               >
-                ${weatherData.location}
+                ${data.location}
               </span>
             </div>
           </div>
