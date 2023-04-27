@@ -12,23 +12,55 @@ const _parentElement = document.querySelector(
   '.weather-section--weather__display--box'
 );
 
+const _asideInputBoxElement = document.querySelector(
+  '.aside__input--box__user--input'
+);
+
+const _asideElement = document.querySelector('.aside__output--box');
+const _parentElementHighlights = document.querySelector(
+  '.weather-section--weather__highlights'
+);
+const _weekDaysElement = document.querySelector(
+  '.weather-section--weather__display--box'
+);
+
 // FUNCTION
 
 // FUNCTION USER INPUT
 
 const userInputFunction = async function () {
-  const id = document.querySelector('.aside__input--box__user--input').value;
+  let id = _asideInputBoxElement.value;
 
   if (id === '') return;
+
   await model.getWeatherApi(id);
 
-  weather.setData(model.state);
+  clearWeatherData();
 
   addAsideMarkup._renderText(model.state);
 
   WeatherHighlights.generateHighlightsMarkup(model.state);
 
   addDays.generateMarkupWeekDays(model.state);
+
+  _asideInputBoxElement.value = '';
+
+  id = _asideInputBoxElement.value;
+};
+
+const clearWeatherData = function () {
+  console.log('Activated');
+  _asideElement.innerHTML = '';
+  _parentElementHighlights.innerHTML = '';
+  _weekDaysElement.innerHTML = '';
+};
+
+// FUNCTION USER CLIKC ON WEEK OR DAY
+
+const userChooseWeekOrDayFunction = function () {
+  // 1. add event listener to the buttons so this function is called (add in init)
+  // 2. if target === C than call the methods in classes (base case)
+  // 3. if target === F than switch the API numbers with F numbers and call the methods
 };
 
 // TODO:

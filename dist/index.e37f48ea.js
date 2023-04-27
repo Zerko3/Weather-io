@@ -705,10 +705,9 @@ class Weather {
     static data = {};
     constructor(){}
     static setData(data) {
-        Weather.data = data;
-        console.log(this.data);
+    // Weather.data = data;
+    // console.log(this.data);
     }
-    static async getData(data) {}
 }
 exports.default = Weather;
 
@@ -846,6 +845,8 @@ class AddDaysOfTheWeek extends (0, _viewDefault.default) {
     constructor(){
         super();
     }
+    // TODO:
+    // 1. for each in generijraj markup
     generateMarkupWeekDays(data) {
         const html = `
     <div

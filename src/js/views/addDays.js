@@ -9,6 +9,9 @@ class AddDaysOfTheWeek extends Weather {
     super();
   }
 
+  // TODO:
+  // 1. for each in generijraj markup
+
   generateMarkupWeekDays(data) {
     const html = `
     <div
