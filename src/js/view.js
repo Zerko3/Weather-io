@@ -8,11 +8,11 @@ export default class Weather {
   constructor() {}
 
   static setData(data) {
-    Weather.data = data;
-    console.log(this.data);
+    // Weather.data = data;
+    // console.log(this.data);
   }
 
-  static async getData(data) {}
+  // static async getData(data) {}
 
   // renderMarkup(data) {
   //   _renderText(data);
