@@ -570,16 +570,34 @@ var _addDaysJsDefault = parcelHelpers.interopDefault(_addDaysJs);
 "use strict";
 // DOM ELEMENTS
 const _parentElement = document.querySelector(".weather-section--weather__display--box");
+const _asideInputBoxElement = document.querySelector(".aside__input--box__user--input");
+const _asideElement = document.querySelector(".aside__output--box");
+const _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
+const _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
 // FUNCTION
 // FUNCTION USER INPUT
 const userInputFunction = async function() {
-    const id1 = document.querySelector(".aside__input--box__user--input").value;
+    let id1 = _asideInputBoxElement.value;
     if (id1 === "") return;
     await _modelJs.getWeatherApi(id1);
-    (0, _viewJsDefault.default).setData(_modelJs.state);
+    clearWeatherData();
     (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
     (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
     (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
+    _asideInputBoxElement.value = "";
+    id1 = _asideInputBoxElement.value;
+};
+const clearWeatherData = function() {
+    console.log("Activated");
+    _asideElement.innerHTML = "";
+    _parentElementHighlights.innerHTML = "";
+    _weekDaysElement.innerHTML = "";
+};
+// FUNCTION USER CLIKC ON WEEK OR DAY
+const userChooseWeekOrDayFunction = function() {
+// 1. add event listener to the buttons so this function is called (add in init)
+// 2. if target === C than call the methods in classes (base case)
+// 3. if target === F than switch the API numbers with F numbers and call the methods
 };
 // TODO:
 // 1. Error handling
@@ -603,11 +621,7 @@ const init = function() {
 };
 init();
 
-<<<<<<< HEAD
-},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
-=======
-},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addDays.js":"9OHQ7"}],"Y4A21":[function(require,module,exports) {
->>>>>>> 4ed0878a0d52b861c005ba2d594499e6d1933505
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","./views/addDays.js":"9OHQ7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
