@@ -5,6 +5,7 @@ import weather from './view.js';
 import addAsideMarkup from './views/addAsideMarkup.js';
 import WeatherHighlights from './views/addHighlights.js';
 import addDays from './views/addDays.js';
+import addHours from './views/addHours.js';
 
 // DOM ELEMENTS
 
@@ -24,9 +25,16 @@ const _weekDaysElement = document.querySelector(
   '.weather-section--weather__display--box'
 );
 
+const _navigationBar = document.querySelector(
+  '.weather-section--navigation--links--box'
+);
+
 // FUNCTION
 
 // FUNCTION USER INPUT
+
+// TODO:
+// 1. if special character is present return
 
 const userInputFunction = async function () {
   let id = _asideInputBoxElement.value;
@@ -36,6 +44,8 @@ const userInputFunction = async function () {
   await model.getWeatherApi(id);
 
   clearWeatherData();
+
+  console.log(model.state);
 
   addAsideMarkup._renderText(model.state);
 
@@ -48,6 +58,8 @@ const userInputFunction = async function () {
   id = _asideInputBoxElement.value;
 };
 
+// CLEAR PREVIOUS INPUT
+
 const clearWeatherData = function () {
   console.log('Activated');
   _asideElement.innerHTML = '';
@@ -57,11 +69,23 @@ const clearWeatherData = function () {
 
 // FUNCTION USER CLIKC ON WEEK OR DAY
 
-const userChooseWeekOrDayFunction = function () {
-  // 1. add event listener to the buttons so this function is called (add in init)
-  // 2. if target === C than call the methods in classes (base case)
-  // 3. if target === F than switch the API numbers with F numbers and call the methods
+const userChooseWeekOrDayFunction = function (e) {
+  const btn = e.target.textContent;
+
+  if (btn === 'Today') {
+    _weekDaysElement.innerHTML = '';
+
+    addHours._generateMarkupDayHours(model.state);
+  }
+
+  if (btn === 'Week') {
+    _weekDaysElement.innerHTML = '';
+
+    addDays.generateMarkupWeekDays(model.state);
+  }
 };
+
+// FUNCTION USER CLICK ON C OR F
 
 // TODO:
 // 1. Error handling
@@ -87,5 +111,6 @@ const displayErrorOnScreen = async function () {
 
 const init = function () {
   addAsideMarkup.userInput(userInputFunction);
+  _navigationBar.addEventListener('click', userChooseWeekOrDayFunction);
 };
 init();
