@@ -54,6 +54,23 @@ a {
   color: var(--hill-color) !important;
 }
 
+.error__box {
+  width: 40%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-25%, -25%);
+}
+
+.error__box p {
+  color: var(--gray-color);
+  font-size: 1.8rem;
+}
+
 #aside {
   background-color: var(--white-color);
   width: 15vw;
