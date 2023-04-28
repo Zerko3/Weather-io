@@ -38,6 +38,7 @@ export const weatherObjectFunction = function (json) {
       visibility: json.current.vis_km,
       airQuality: json.current.air_quality['us-epa-index'],
       daysInTheWeek: json.forecast.forecastday,
+      hoursInAdayData: json.forecast.forecastday[0].hour,
     };
   } catch (error) {
     console.error(error, `HEREEEEEEEEEEEEEE`);

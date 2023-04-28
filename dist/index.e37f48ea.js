@@ -567,6 +567,8 @@ var _addHighlightsJs = require("./views/addHighlights.js");
 var _addHighlightsJsDefault = parcelHelpers.interopDefault(_addHighlightsJs);
 var _addDaysJs = require("./views/addDays.js");
 var _addDaysJsDefault = parcelHelpers.interopDefault(_addDaysJs);
+var _addHoursJs = require("./views/addHours.js");
+var _addHoursJsDefault = parcelHelpers.interopDefault(_addHoursJs);
 "use strict";
 // DOM ELEMENTS
 const _parentElement = document.querySelector(".weather-section--weather__display--box");
@@ -574,19 +576,24 @@ const _asideInputBoxElement = document.querySelector(".aside__input--box__user--
 const _asideElement = document.querySelector(".aside__output--box");
 const _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
 const _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
+const _navigationBar = document.querySelector(".weather-section--navigation--links--box");
 // FUNCTION
 // FUNCTION USER INPUT
+// TODO:
+// 1. if special character is present return
 const userInputFunction = async function() {
     let id1 = _asideInputBoxElement.value;
     if (id1 === "") return;
     await _modelJs.getWeatherApi(id1);
     clearWeatherData();
+    console.log(_modelJs.state);
     (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
     (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
     (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
     _asideInputBoxElement.value = "";
     id1 = _asideInputBoxElement.value;
 };
+// CLEAR PREVIOUS INPUT
 const clearWeatherData = function() {
     console.log("Activated");
     _asideElement.innerHTML = "";
@@ -594,11 +601,18 @@ const clearWeatherData = function() {
     _weekDaysElement.innerHTML = "";
 };
 // FUNCTION USER CLIKC ON WEEK OR DAY
-const userChooseWeekOrDayFunction = function() {
-// 1. add event listener to the buttons so this function is called (add in init)
-// 2. if target === C than call the methods in classes (base case)
-// 3. if target === F than switch the API numbers with F numbers and call the methods
+const userChooseWeekOrDayFunction = function(e) {
+    const btn = e.target.textContent;
+    if (btn === "Today") {
+        _weekDaysElement.innerHTML = "";
+        (0, _addHoursJsDefault.default)._generateMarkupDayHours(_modelJs.state);
+    }
+    if (btn === "Week") {
+        _weekDaysElement.innerHTML = "";
+        (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
+    }
 };
+// FUNCTION USER CLICK ON C OR F
 // TODO:
 // 1. Error handling
 const renderErrorFunction = function() {
@@ -618,10 +632,11 @@ const displayErrorOnScreen = async function() {
 // APP INITIALIZATION
 const init = function() {
     (0, _addAsideMarkupJsDefault.default).userInput(userInputFunction);
+    _navigationBar.addEventListener("click", userChooseWeekOrDayFunction);
 };
 init();
 
-},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","./views/addDays.js":"9OHQ7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","./views/addDays.js":"9OHQ7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addHours.js":"jk9Lw"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
@@ -658,7 +673,8 @@ const weatherObjectFunction = function(json) {
             humidity: json.current.humidity,
             visibility: json.current.vis_km,
             airQuality: json.current.air_quality["us-epa-index"],
-            daysInTheWeek: json.forecast.forecastday
+            daysInTheWeek: json.forecast.forecastday,
+            hoursInAdayData: json.forecast.forecastday[0].hour
         };
     } catch (error) {
         console.error(error, `HEREEEEEEEEEEEEEE`);
@@ -918,6 +934,81 @@ class AddDaysOfTheWeek extends (0, _viewDefault.default) {
     }
 }
 exports.default = new AddDaysOfTheWeek();
+
+},{"../view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jk9Lw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class AddHours extends (0, _viewDefault.default) {
+    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
+    constructor(){
+        super();
+    }
+    _generateMarkupDayHours(data) {
+        const htmlHours = `
+    <div
+    class="weather-section--weather__display--box--weather__day--box">
+    <h2>${data.hoursInAdayData[3].time.split(" ").slice(1)}</h2>
+    <i class="fa-solid fa-cloud"></i>
+    <div class="weather__day__morning--num--box">
+      <span class="weather__day__morning--num">${data.hoursInAdayData[3].temp_c}&#8451;</span>
+    </div>
+  </div>
+
+  <div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[6].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+    <span class="weather__day__morning--num">${data.hoursInAdayData[6].temp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[9].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+    <span class="weather__day__morning--num">${data.hoursInAdayData[9].temp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[12].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.hoursInAdayData[12].temp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[15].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.hoursInAdayData[15].temp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[18].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.hoursInAdayData[18].temp_c}&#8451;</span>
+  </div>
+</div>
+<div
+  class="weather-section--weather__display--box--weather__day--box">
+  <h2>${data.hoursInAdayData[21].time.split(" ").slice(1)}</h2>
+  <i class="fa-solid fa-cloud"></i>
+  <div class="weather__day__morning--num--box">
+  <span class="weather__day__morning--num">${data.hoursInAdayData[21].temp_c}&#8451;</span>
+  </div>
+</div>
+    `;
+        this._weekDaysElement.insertAdjacentHTML("afterbegin", htmlHours);
+    }
+}
+exports.default = new AddHours();
 
 },{"../view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequiref129")
 
