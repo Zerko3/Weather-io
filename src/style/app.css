@@ -6,7 +6,7 @@
 
 :root {
   font-size: 62.5%;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   overflow: hidden;
 
   --white-color: #fff;
@@ -59,6 +59,23 @@ a {
 
 .fa-mountain {
   color: var(--hill-color) !important;
+}
+
+.error__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-25%, -25%);
+}
+
+.error__box p {
+  font-size: 1.8rem;
+  color: var(--gray-color);
 }
 
 /* ----------------------------------------------- */

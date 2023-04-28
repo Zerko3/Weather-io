@@ -582,16 +582,20 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
 // TODO:
 // 1. if special character is present return
 const userInputFunction = async function() {
-    let id1 = _asideInputBoxElement.value;
-    if (id1 === "") return;
-    await _modelJs.getWeatherApi(id1);
-    clearWeatherData();
-    console.log(_modelJs.state);
-    (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
-    (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
-    (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
-    _asideInputBoxElement.value = "";
-    id1 = _asideInputBoxElement.value;
+    try {
+        let id = _asideInputBoxElement.value;
+        if (id === "") return;
+        await _modelJs.getWeatherApi(id);
+        clearWeatherData();
+        (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
+        (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
+        (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
+        _asideInputBoxElement.value = "";
+        id = _asideInputBoxElement.value;
+    } catch (error) {
+        console.error(`🥲 ERROR IS WORKING`, error);
+        renderErrorFunction();
+    }
 };
 // CLEAR PREVIOUS INPUT
 const clearWeatherData = function() {
@@ -613,21 +617,14 @@ const userChooseWeekOrDayFunction = function(e) {
     }
 };
 // FUNCTION USER CLICK ON C OR F
-// TODO:
 // 1. Error handling
 const renderErrorFunction = function() {
+    clearWeatherData();
     const _errorMessage = "We could not find that location. Please try another one!";
-    const errorMarkup = `<h1>${_errorMessage}</h1>`;
+    const errorMarkup = `<div class="error__box">
+                        <p>${_errorMessage}</p>
+                      </div>`;
     _parentElement.insertAdjacentHTML("afterbegin", errorMarkup);
-};
-const displayErrorOnScreen = async function() {
-    try {
-        await _modelJs.getWeatherApi(id);
-        console.log(_modelJs.state);
-    } catch (error) {
-        console.error(`🥲 ERROR IS WORKING`, error);
-        renderErrorFunction(error);
-    }
 };
 // APP INITIALIZATION
 const init = function() {
@@ -636,7 +633,7 @@ const init = function() {
 };
 init();
 
-},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","./views/addDays.js":"9OHQ7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addHours.js":"jk9Lw"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./view.js":"ky8MP","./views/addAsideMarkup.js":"4wDdN","./views/addHighlights.js":"gKboZ","./views/addDays.js":"9OHQ7","./views/addHours.js":"jk9Lw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
