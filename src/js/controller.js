@@ -37,25 +37,28 @@ const _navigationBar = document.querySelector(
 // 1. if special character is present return
 
 const userInputFunction = async function () {
-  let id = _asideInputBoxElement.value;
+  try {
+    let id = _asideInputBoxElement.value;
 
-  if (id === '') return;
+    if (id === '') return;
 
-  await model.getWeatherApi(id);
+    await model.getWeatherApi(id);
 
-  clearWeatherData();
+    clearWeatherData();
 
-  console.log(model.state);
+    addAsideMarkup._renderText(model.state);
 
-  addAsideMarkup._renderText(model.state);
+    WeatherHighlights.generateHighlightsMarkup(model.state);
 
-  WeatherHighlights.generateHighlightsMarkup(model.state);
+    addDays.generateMarkupWeekDays(model.state);
 
-  addDays.generateMarkupWeekDays(model.state);
+    _asideInputBoxElement.value = '';
 
-  _asideInputBoxElement.value = '';
-
-  id = _asideInputBoxElement.value;
+    id = _asideInputBoxElement.value;
+  } catch (error) {
+    console.error(`🥲 ERROR IS WORKING`, error);
+    renderErrorFunction();
+  }
 };
 
 // CLEAR PREVIOUS INPUT
@@ -87,24 +90,16 @@ const userChooseWeekOrDayFunction = function (e) {
 
 // FUNCTION USER CLICK ON C OR F
 
-// TODO:
 // 1. Error handling
 const renderErrorFunction = function () {
+  clearWeatherData();
   const _errorMessage =
     'We could not find that location. Please try another one!';
 
-  const errorMarkup = `<h1>${_errorMessage}</h1>`;
+  const errorMarkup = `<div class="error__box">
+                        <p>${_errorMessage}</p>
+                      </div>`;
   _parentElement.insertAdjacentHTML('afterbegin', errorMarkup);
-};
-
-const displayErrorOnScreen = async function () {
-  try {
-    await model.getWeatherApi(id);
-    console.log(model.state);
-  } catch (error) {
-    console.error(`🥲 ERROR IS WORKING`, error);
-    renderErrorFunction(error);
-  }
 };
 
 // APP INITIALIZATION
