@@ -41,7 +41,7 @@ export const weatherObjectFunction = function (json) {
       hoursInAdayData: json.forecast.forecastday[0].hour,
     };
   } catch (error) {
-    console.error(error, `HEREEEEEEEEEEEEEE`);
+    console.error(error, `HERE`);
     throw error;
   }
 };

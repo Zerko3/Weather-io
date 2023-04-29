@@ -46,6 +46,8 @@ const userInputFunction = async function () {
 
     clearWeatherData();
 
+    console.log(model.state);
+
     addAsideMarkup._renderText(model.state);
 
     WeatherHighlights.generateHighlightsMarkup(model.state);

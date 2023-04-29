@@ -587,6 +587,7 @@ const userInputFunction = async function() {
         if (id === "") return;
         await _modelJs.getWeatherApi(id);
         clearWeatherData();
+        console.log(_modelJs.state);
         (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
         (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
         (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
@@ -674,7 +675,7 @@ const weatherObjectFunction = function(json) {
             hoursInAdayData: json.forecast.forecastday[0].hour
         };
     } catch (error) {
-        console.error(error, `HEREEEEEEEEEEEEEE`);
+        console.error(error, `HERE`);
         throw error;
     }
 };
@@ -870,7 +871,6 @@ class AddDaysOfTheWeek extends (0, _viewDefault.default) {
     }
     generateMarkupWeekDays(data) {
         data.daysInTheWeek.forEach((element, index)=>{
-            console.log(element, index);
             const html = `
         <div
         class="weather-section--weather__display--box--weather__day--box">
@@ -881,7 +881,6 @@ class AddDaysOfTheWeek extends (0, _viewDefault.default) {
           <span class="weather__day__evening--num">${element.day.maxtemp_c}&#8451;</span>
         </div>
       </div>`;
-            console.log(html);
             this._weekDaysElement.insertAdjacentHTML("afterbegin", html);
         });
     }
@@ -899,66 +898,29 @@ class AddHours extends (0, _viewDefault.default) {
         super();
     }
     _generateMarkupDayHours(data) {
-        const htmlHours = `
-    <div
-    class="weather-section--weather__display--box--weather__day--box">
-    <h2>${data.hoursInAdayData[3].time.split(" ").slice(1)}</h2>
-    <i class="fa-solid fa-cloud"></i>
-    <div class="weather__day__morning--num--box">
-      <span class="weather__day__morning--num">${data.hoursInAdayData[3].temp_c}&#8451;</span>
-    </div>
-  </div>
-
-  <div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[6].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-    <span class="weather__day__morning--num">${data.hoursInAdayData[6].temp_c}&#8451;</span>
-  </div>
-</div>
-<div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[9].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-    <span class="weather__day__morning--num">${data.hoursInAdayData[9].temp_c}&#8451;</span>
-  </div>
-</div>
-<div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[12].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-  <span class="weather__day__morning--num">${data.hoursInAdayData[12].temp_c}&#8451;</span>
-  </div>
-</div>
-<div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[15].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-  <span class="weather__day__morning--num">${data.hoursInAdayData[15].temp_c}&#8451;</span>
-  </div>
-</div>
-<div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[18].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-  <span class="weather__day__morning--num">${data.hoursInAdayData[18].temp_c}&#8451;</span>
-  </div>
-</div>
-<div
-  class="weather-section--weather__display--box--weather__day--box">
-  <h2>${data.hoursInAdayData[21].time.split(" ").slice(1)}</h2>
-  <i class="fa-solid fa-cloud"></i>
-  <div class="weather__day__morning--num--box">
-  <span class="weather__day__morning--num">${data.hoursInAdayData[21].temp_c}&#8451;</span>
-  </div>
-</div>
-    `;
-        this._weekDaysElement.insertAdjacentHTML("afterbegin", htmlHours);
+        const desiredIndex = [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21
+        ];
+        data.hoursInAdayData.forEach((element, index)=>{
+            if (desiredIndex.includes(index)) {
+                const htmlHours = `
+        <div
+        class="weather-section--weather__display--box--weather__day--box">
+        <h2>${element.time.split(" ").slice(1)}</h2>
+        <i class="fa-solid fa-cloud"></i>
+        <div class="weather__day__morning--num--box">
+          <span class="weather__day__morning--num">${element.temp_c}&#8451;</span>
+        </div>
+      </div>`;
+                this._weekDaysElement.insertAdjacentHTML("afterbegin", htmlHours);
+            }
+        });
     }
 }
 exports.default = new AddHours();
