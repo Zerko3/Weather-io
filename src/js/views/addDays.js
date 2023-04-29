@@ -22,7 +22,6 @@ class AddDaysOfTheWeek extends Weather {
 
   generateMarkupWeekDays(data) {
     data.daysInTheWeek.forEach((element, index) => {
-      console.log(element, index);
       const html = `
         <div
         class="weather-section--weather__display--box--weather__day--box">
@@ -33,7 +32,6 @@ class AddDaysOfTheWeek extends Weather {
           <span class="weather__day__evening--num">${element.day.maxtemp_c}&#8451;</span>
         </div>
       </div>`;
-      console.log(html);
       this._weekDaysElement.insertAdjacentHTML('afterbegin', html);
     });
   }
