@@ -48,7 +48,7 @@ class AddAsideMarkup extends Weather {
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather-type-one"
               >
-                <i class="fa-solid fa-cloud-sun"></i>Mostly sunny</span
+                <i class="fa-solid fa-cloud-sun"></i>${data.tipeOfWeather}</span
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
