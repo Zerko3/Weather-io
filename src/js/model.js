@@ -2,8 +2,16 @@
 
 const _KEY = '61956096fab848c5a78133732232204';
 
+// global object with the valid data from the API call.
 export let state = {};
 
+/**
+ *
+ * @param {*} id
+ * @description The function awaits the API call and a user input in from on an ID.
+ * @returns an object with the valid data from the API call. Catches and throws an error.
+ * @author Žan
+ */
 export const getWeatherApi = async function (id) {
   try {
     const data = await fetch(
@@ -21,11 +29,19 @@ export const getWeatherApi = async function (id) {
   }
 };
 
+/**
+ *
+ * @param {*} json
+ * @description the function is called by the getWeatherApi and formats an object.
+ * @returns an object called state. The object is globaly avalible in the source code.
+ * @author Žan
+ */
 export const weatherObjectFunction = function (json) {
   try {
     return {
       id: json.location.name,
       location: json.location.name,
+      tipeOfWeather: json.current.condition.text,
       time: json.location.localtime,
       temerature: json.current.temp_c,
       weatherCondition: json.current.condition.text,

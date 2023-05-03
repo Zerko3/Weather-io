@@ -570,43 +570,63 @@ var _addDaysJsDefault = parcelHelpers.interopDefault(_addDaysJs);
 var _addHoursJs = require("./views/addHours.js");
 var _addHoursJsDefault = parcelHelpers.interopDefault(_addHoursJs);
 "use strict";
-// DOM ELEMENTS
-const _parentElement = document.querySelector(".weather-section--weather__display--box");
+/* --------------------------------------------------------- */ // DOM ELEMENTS
+/* --------------------------------------------------------- */ const _parentElement = document.querySelector(".weather-section--weather__display--box");
 const _asideInputBoxElement = document.querySelector(".aside__input--box__user--input");
 const _asideElement = document.querySelector(".aside__output--box");
 const _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
 const _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
 const _navigationBar = document.querySelector(".weather-section--navigation--links--box");
-// FUNCTION
-// FUNCTION USER INPUT
-// TODO:
-// 1. if special character is present return
-const userInputFunction = async function() {
+/* --------------------------------------------------------- */ // FUNCTION
+/* --------------------------------------------------------- */ // FUNCTION USER INPUT
+/**
+ * @param {*} userInput
+ * @async Function awais the data from the modal.js. Gets modal.state back. Modal.state is an object with all the valid data.
+ * @description This function gets the users input from the HTML form and calls the API function and other class mehtods. Its the "bridge" between the modal.js and view.js
+ * @returns {Calls API function and  class methods}
+ * @author Žan
+ */ const userInputFunction = async function() {
     try {
+        // user input
         let id = _asideInputBoxElement.value;
-        if (id === "") return;
+        // check if user input is valid or not
+        if (id === "" || id.includes("!", "-", ":", ".", ",", "_", "#", "&", "%")) return;
+        // calls API function from the modal.js and awaits the data
         await _modelJs.getWeatherApi(id);
+        // calls function to clear the DOM
         clearWeatherData();
-        console.log(_modelJs.state);
+        // calls the class AddAsideMarkup and its method to render the text on the DOM.
         (0, _addAsideMarkupJsDefault.default)._renderText(_modelJs.state);
+        // calls the class WeatherHighlights and its method to render the text on the DOM.
         (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(_modelJs.state);
+        // calls the class AddDays and its method to render the text on the DOM.
         (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
+        // clear the user input for better UX.
         _asideInputBoxElement.value = "";
         id = _asideInputBoxElement.value;
     } catch (error) {
         console.error(`🥲 ERROR IS WORKING`, error);
+        // If there is an error call this function to handle it.
         renderErrorFunction();
     }
 };
-// CLEAR PREVIOUS INPUT
-const clearWeatherData = function() {
-    console.log("Activated");
+/**
+ * @description This function is called from the userInputFunction every time the user inputs some data. This function will change all the DOM inner HTML to ""
+ * @returns {empty DOM}
+ * @author Žan
+ */ const clearWeatherData = function() {
     _asideElement.innerHTML = "";
     _parentElementHighlights.innerHTML = "";
     _weekDaysElement.innerHTML = "";
 };
 // FUNCTION USER CLIKC ON WEEK OR DAY
-const userChooseWeekOrDayFunction = function(e) {
+/**
+ *
+ * @param {*} e
+ * @description the function allows the user to swtich between two views on demand.
+ * @returns calls AddHours class and its methods or AddDays and its methods with the valid data from API.
+ * @author Žan
+ */ const userChooseWeekOrDayFunction = function(e) {
     const btn = e.target.textContent;
     if (btn === "Today") {
         _weekDaysElement.innerHTML = "";
@@ -617,9 +637,10 @@ const userChooseWeekOrDayFunction = function(e) {
         (0, _addDaysJsDefault.default).generateMarkupWeekDays(_modelJs.state);
     }
 };
-// FUNCTION USER CLICK ON C OR F
-// 1. Error handling
-const renderErrorFunction = function() {
+/**
+ *@description this function calls the clearWeatherData function to clear the DOM. And then renders the error message to the DOM.
+ *@author Žan
+ */ const renderErrorFunction = function() {
     clearWeatherData();
     const _errorMessage = "We could not find that location. Please try another one!";
     const errorMarkup = `<div class="error__box">
@@ -627,8 +648,11 @@ const renderErrorFunction = function() {
                       </div>`;
     _parentElement.insertAdjacentHTML("afterbegin", errorMarkup);
 };
-// APP INITIALIZATION
-const init = function() {
+/* --------------------------------------------------------- */ // APP INITIALIZATION
+/* --------------------------------------------------------- */ /**
+ * @description this function is called at the beginning of the loading of the DOM and JS. The goal is to initialize all the function for the web application.
+ * @author Žan
+ */ const init = function() {
     (0, _addAsideMarkupJsDefault.default).userInput(userInputFunction);
     _navigationBar.addEventListener("click", userChooseWeekOrDayFunction);
 };
@@ -660,6 +684,7 @@ const weatherObjectFunction = function(json) {
         return {
             id: json.location.name,
             location: json.location.name,
+            tipeOfWeather: json.current.condition.text,
             time: json.location.localtime,
             temerature: json.current.temp_c,
             weatherCondition: json.current.condition.text,
@@ -772,7 +797,7 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather-type-one"
               >
-                <i class="fa-solid fa-cloud-sun"></i>Mostly sunny</span
+                <i class="fa-solid fa-cloud-sun"></i>${data.tipeOfWeather}</span
               >
               <span
                 class="aside__output--box__img--box__text__weather_info--box--weather--type-two"
