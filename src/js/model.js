@@ -19,12 +19,14 @@ export const getWeatherApi = async function (id) {
     );
 
     const json = await data.json();
-    console.log(json);
+
     state = weatherObjectFunction(json);
+
     addToLocalStorage(state);
+
     return weatherObjectFunction(json);
   } catch (error) {
-    console.error(`${error} this is the error 🥲.`);
+    console.error(error, `There is an error happening in the API call.`);
     throw error;
   }
 };
@@ -57,7 +59,10 @@ export const weatherObjectFunction = function (json) {
       hoursInAdayData: json.forecast.forecastday[0].hour,
     };
   } catch (error) {
-    console.error(error, `HERE`);
+    console.error(
+      error,
+      `There is an error happening in the creation of the state.`
+    );
     throw error;
   }
 };

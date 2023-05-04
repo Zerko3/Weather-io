@@ -71,7 +71,7 @@ const userInputFunction = async function () {
 
     id = _asideInputBoxElement.value;
   } catch (error) {
-    console.error(`🥲 ERROR IS WORKING`, error);
+    console.error(error, `There is an error in the user input section.`);
     // If there is an error call this function to handle it.
     renderErrorFunction();
   }

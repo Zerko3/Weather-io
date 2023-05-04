@@ -605,7 +605,7 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
         _asideInputBoxElement.value = "";
         id = _asideInputBoxElement.value;
     } catch (error) {
-        console.error(`🥲 ERROR IS WORKING`, error);
+        console.error(error, `There is an error in the user input section.`);
         // If there is an error call this function to handle it.
         renderErrorFunction();
     }
@@ -693,24 +693,21 @@ init();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
-parcelHelpers.export(exports, "stateArr", ()=>stateArr);
 parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
 parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
 parcelHelpers.export(exports, "addToLocalStorage", ()=>addToLocalStorage);
 "use strict";
 const _KEY = "61956096fab848c5a78133732232204";
 let state = {};
-let stateArr = [];
 const getWeatherApi = async function(id) {
     try {
         const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
         const json = await data.json();
-        console.log(json);
         state = weatherObjectFunction(json);
         addToLocalStorage(state);
         return weatherObjectFunction(json);
     } catch (error) {
-        console.error(`${error} this is the error 🥲.`);
+        console.error(error, `There is an error happening in the API call.`);
         throw error;
     }
 };
@@ -735,13 +732,11 @@ const weatherObjectFunction = function(json) {
             hoursInAdayData: json.forecast.forecastday[0].hour
         };
     } catch (error) {
-        console.error(error, `HERE`);
+        console.error(error, `There is an error happening in the creation of the state.`);
         throw error;
     }
 };
 const addToLocalStorage = function() {
-    // stateArr.push(state);
-    console.log(state);
     localStorage.setItem("location", JSON.stringify(state));
 };
 
