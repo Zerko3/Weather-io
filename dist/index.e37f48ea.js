@@ -696,12 +696,12 @@ parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
 parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
 parcelHelpers.export(exports, "addToLocalStorage", ()=>addToLocalStorage);
+var _helpersJs = require("./helpers.js");
 "use strict";
-const _KEY = "61956096fab848c5a78133732232204";
 let state = {};
 const getWeatherApi = async function(id) {
     try {
-        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
+        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_helpersJs._KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
         const json = await data.json();
         state = weatherObjectFunction(json);
         addToLocalStorage(state);
@@ -739,6 +739,12 @@ const weatherObjectFunction = function(json) {
 const addToLocalStorage = function() {
     localStorage.setItem("location", JSON.stringify(state));
 };
+
+},{"./helpers.js":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "_KEY", ()=>_KEY);
+const _KEY = "61956096fab848c5a78133732232204";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
