@@ -4,6 +4,7 @@ const _KEY = '61956096fab848c5a78133732232204';
 
 // global object with the valid data from the API call.
 export let state = {};
+export let stateArr = [];
 
 /**
  *
@@ -21,7 +22,7 @@ export const getWeatherApi = async function (id) {
     const json = await data.json();
     console.log(json);
     state = weatherObjectFunction(json);
-
+    addToLocalStorage(state);
     return weatherObjectFunction(json);
   } catch (error) {
     console.error(`${error} this is the error 🥲.`);
@@ -60,4 +61,10 @@ export const weatherObjectFunction = function (json) {
     console.error(error, `HERE`);
     throw error;
   }
+};
+
+export const addToLocalStorage = function () {
+  // stateArr.push(state);
+  console.log(state);
+  localStorage.setItem('location', JSON.stringify(state));
 };

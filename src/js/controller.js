@@ -77,6 +77,41 @@ const userInputFunction = async function () {
   }
 };
 
+const renderLocalStorageItem = function () {
+  if (localStorage.getItem('location') !== null) {
+    getDataFromLocalStorage();
+  }
+};
+
+const getDataFromLocalStorage = function () {
+  const locasStorageData = JSON.parse(localStorage.getItem('location'));
+
+  // calls the class AddAsideMarkup and its method to render the text on the DOM.
+  addAsideMarkup._renderText(locasStorageData);
+
+  // calls the class WeatherHighlights and its method to render the text on the DOM.
+  WeatherHighlights.generateHighlightsMarkup(locasStorageData);
+
+  // calls the class AddDays and its method to render the text on the DOM.
+  addDays.generateMarkupWeekDays(locasStorageData);
+
+  _navigationBar.addEventListener('click', function (e) {
+    const btn = e.target.textContent;
+
+    if (btn === 'Today') {
+      _weekDaysElement.innerHTML = '';
+
+      addHours._generateMarkupDayHours(locasStorageData);
+    }
+
+    if (btn === 'Week') {
+      _weekDaysElement.innerHTML = '';
+
+      addDays.generateMarkupWeekDays(locasStorageData);
+    }
+  });
+};
+
 /**
  * @description This function is called from the userInputFunction every time the user inputs some data. This function will change all the DOM inner HTML to ""
  * @returns {empty DOM}
@@ -141,5 +176,6 @@ const renderErrorFunction = function () {
 const init = function () {
   addAsideMarkup.userInput(userInputFunction);
   _navigationBar.addEventListener('click', userChooseWeekOrDayFunction);
+  renderLocalStorageItem();
 };
 init();
