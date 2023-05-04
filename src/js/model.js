@@ -67,6 +67,11 @@ export const weatherObjectFunction = function (json) {
   }
 };
 
+/**
+ * @param {object} state
+ * @description This function sets the localstorage.
+ * @author Žan
+ */
 export const addToLocalStorage = function () {
   localStorage.setItem('location', JSON.stringify(state));
 };
