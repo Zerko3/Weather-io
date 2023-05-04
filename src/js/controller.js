@@ -77,12 +77,20 @@ const userInputFunction = async function () {
   }
 };
 
+/**
+ * @description Function calls the getDataFromLocalStorage() if there is a key present inside it.
+ * @author Žan
+ */
 const renderLocalStorageItem = function () {
   if (localStorage.getItem('location') !== null) {
     getDataFromLocalStorage();
   }
 };
 
+/**
+ * @description Function gets the data from the locasstorage and calls classes with their methods to render HTML on the DOM.
+ * @author Žan
+ */
 const getDataFromLocalStorage = function () {
   const locasStorageData = JSON.parse(localStorage.getItem('location'));
 
@@ -95,6 +103,7 @@ const getDataFromLocalStorage = function () {
   // calls the class AddDays and its method to render the text on the DOM.
   addDays.generateMarkupWeekDays(locasStorageData);
 
+  // callback function on the parent element of both the buttons
   _navigationBar.addEventListener('click', function (e) {
     const btn = e.target.textContent;
 

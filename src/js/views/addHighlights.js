@@ -1,9 +1,6 @@
 import Weather from '../view.js';
 
 class WeatherHighlights extends Weather {
-  _parentElementHighlights = document.querySelector(
-    '.weather-section--weather__highlights'
-  );
   constructor() {
     super();
   }
