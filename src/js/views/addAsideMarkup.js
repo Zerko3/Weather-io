@@ -1,19 +1,5 @@
 import Weather from '../view.js';
 class AddAsideMarkup extends Weather {
-  _asideElement = document.querySelector('.aside__output--box');
-
-  _daysInAWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-
-  _date = new Date();
-
   constructor() {
     super();
   }

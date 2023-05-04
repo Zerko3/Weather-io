@@ -1,21 +1,6 @@
 import Weather from '../view';
 
 class AddDaysOfTheWeek extends Weather {
-  _weekDaysElement = document.querySelector(
-    '.weather-section--weather__display--box'
-  );
-
-  _date = new Date();
-
-  _daysInAWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
   constructor() {
     super();
   }

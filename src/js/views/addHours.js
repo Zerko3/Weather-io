@@ -1,9 +1,6 @@
 import Weather from '../view';
 
 class AddHours extends Weather {
-  _weekDaysElement = document.querySelector(
-    '.weather-section--weather__display--box'
-  );
   constructor() {
     super();
   }

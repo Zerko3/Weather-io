@@ -611,6 +611,36 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
     }
 };
 /**
+ * @description Function calls the getDataFromLocalStorage() if there is a key present inside it.
+ * @author Žan
+ */ const renderLocalStorageItem = function() {
+    if (localStorage.getItem("location") !== null) getDataFromLocalStorage();
+};
+/**
+ * @description Function gets the data from the locasstorage and calls classes with their methods to render HTML on the DOM.
+ * @author Žan
+ */ const getDataFromLocalStorage = function() {
+    const locasStorageData = JSON.parse(localStorage.getItem("location"));
+    // calls the class AddAsideMarkup and its method to render the text on the DOM.
+    (0, _addAsideMarkupJsDefault.default)._renderText(locasStorageData);
+    // calls the class WeatherHighlights and its method to render the text on the DOM.
+    (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(locasStorageData);
+    // calls the class AddDays and its method to render the text on the DOM.
+    (0, _addDaysJsDefault.default).generateMarkupWeekDays(locasStorageData);
+    // callback function on the parent element of both the buttons
+    _navigationBar.addEventListener("click", function(e) {
+        const btn = e.target.textContent;
+        if (btn === "Today") {
+            _weekDaysElement.innerHTML = "";
+            (0, _addHoursJsDefault.default)._generateMarkupDayHours(locasStorageData);
+        }
+        if (btn === "Week") {
+            _weekDaysElement.innerHTML = "";
+            (0, _addDaysJsDefault.default).generateMarkupWeekDays(locasStorageData);
+        }
+    });
+};
+/**
  * @description This function is called from the userInputFunction every time the user inputs some data. This function will change all the DOM inner HTML to ""
  * @returns {empty DOM}
  * @author Žan
@@ -655,6 +685,7 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
  */ const init = function() {
     (0, _addAsideMarkupJsDefault.default).userInput(userInputFunction);
     _navigationBar.addEventListener("click", userChooseWeekOrDayFunction);
+    renderLocalStorageItem();
 };
 init();
 
@@ -750,22 +781,11 @@ parcelHelpers.defineInteropFlag(exports);
 "use strict";
 class Weather {
     _userForm = document.querySelector(".user__input");
-    static data = {};
-    constructor(){}
-    static setData(data) {
-    // Weather.data = data;
-    // console.log(this.data);
-    }
-}
-exports.default = Weather;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4wDdN":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _viewJs = require("../view.js");
-var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-class AddAsideMarkup extends (0, _viewJsDefault.default) {
     _asideElement = document.querySelector(".aside__output--box");
+    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
+    _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
+    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
+    _date = new Date();
     _daysInAWeek = [
         "Sunday",
         "Monday",
@@ -775,7 +795,17 @@ class AddAsideMarkup extends (0, _viewJsDefault.default) {
         "Friday",
         "Saturday"
     ];
-    _date = new Date();
+    static data = {};
+    constructor(){}
+}
+exports.default = Weather;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4wDdN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("../view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class AddAsideMarkup extends (0, _viewJsDefault.default) {
     constructor(){
         super();
     }
@@ -832,7 +862,6 @@ parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("../view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 class WeatherHighlights extends (0, _viewJsDefault.default) {
-    _parentElementHighlights = document.querySelector(".weather-section--weather__highlights");
     constructor(){
         super();
     }
@@ -889,17 +918,6 @@ parcelHelpers.defineInteropFlag(exports);
 var _view = require("../view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class AddDaysOfTheWeek extends (0, _viewDefault.default) {
-    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
-    _date = new Date();
-    _daysInAWeek = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-    ];
     constructor(){
         super();
     }
@@ -927,7 +945,6 @@ parcelHelpers.defineInteropFlag(exports);
 var _view = require("../view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class AddHours extends (0, _viewDefault.default) {
-    _weekDaysElement = document.querySelector(".weather-section--weather__display--box");
     constructor(){
         super();
     }
