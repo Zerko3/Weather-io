@@ -610,6 +610,29 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
         renderErrorFunction();
     }
 };
+const renderLocalStorageItem = function() {
+    if (localStorage.getItem("location") !== null) getDataFromLocalStorage();
+};
+const getDataFromLocalStorage = function() {
+    const locasStorageData = JSON.parse(localStorage.getItem("location"));
+    // calls the class AddAsideMarkup and its method to render the text on the DOM.
+    (0, _addAsideMarkupJsDefault.default)._renderText(locasStorageData);
+    // calls the class WeatherHighlights and its method to render the text on the DOM.
+    (0, _addHighlightsJsDefault.default).generateHighlightsMarkup(locasStorageData);
+    // calls the class AddDays and its method to render the text on the DOM.
+    (0, _addDaysJsDefault.default).generateMarkupWeekDays(locasStorageData);
+    _navigationBar.addEventListener("click", function(e) {
+        const btn = e.target.textContent;
+        if (btn === "Today") {
+            _weekDaysElement.innerHTML = "";
+            (0, _addHoursJsDefault.default)._generateMarkupDayHours(locasStorageData);
+        }
+        if (btn === "Week") {
+            _weekDaysElement.innerHTML = "";
+            (0, _addDaysJsDefault.default).generateMarkupWeekDays(locasStorageData);
+        }
+    });
+};
 /**
  * @description This function is called from the userInputFunction every time the user inputs some data. This function will change all the DOM inner HTML to ""
  * @returns {empty DOM}
@@ -655,6 +678,7 @@ const _navigationBar = document.querySelector(".weather-section--navigation--lin
  */ const init = function() {
     (0, _addAsideMarkupJsDefault.default).userInput(userInputFunction);
     _navigationBar.addEventListener("click", userChooseWeekOrDayFunction);
+    renderLocalStorageItem();
 };
 init();
 
@@ -662,17 +686,21 @@ init();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
+parcelHelpers.export(exports, "stateArr", ()=>stateArr);
 parcelHelpers.export(exports, "getWeatherApi", ()=>getWeatherApi);
 parcelHelpers.export(exports, "weatherObjectFunction", ()=>weatherObjectFunction);
+parcelHelpers.export(exports, "addToLocalStorage", ()=>addToLocalStorage);
 "use strict";
 const _KEY = "61956096fab848c5a78133732232204";
 let state = {};
+let stateArr = [];
 const getWeatherApi = async function(id) {
     try {
         const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
         const json = await data.json();
         console.log(json);
         state = weatherObjectFunction(json);
+        addToLocalStorage(state);
         return weatherObjectFunction(json);
     } catch (error) {
         console.error(`${error} this is the error 🥲.`);
@@ -703,6 +731,11 @@ const weatherObjectFunction = function(json) {
         console.error(error, `HERE`);
         throw error;
     }
+};
+const addToLocalStorage = function() {
+    // stateArr.push(state);
+    console.log(state);
+    localStorage.setItem("location", JSON.stringify(state));
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
