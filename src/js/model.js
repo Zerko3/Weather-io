@@ -4,7 +4,6 @@ const _KEY = '61956096fab848c5a78133732232204';
 
 // global object with the valid data from the API call.
 export let state = {};
-export let stateArr = [];
 
 /**
  *
@@ -64,7 +63,5 @@ export const weatherObjectFunction = function (json) {
 };
 
 export const addToLocalStorage = function () {
-  // stateArr.push(state);
-  console.log(state);
   localStorage.setItem('location', JSON.stringify(state));
 };
