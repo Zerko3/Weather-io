@@ -9,6 +9,7 @@
   "author": "Zan",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.5.0",
     "parcel": "^2.8.3"
   }
 }

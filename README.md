@@ -13,3 +13,13 @@ For this application I used vanilla Javascript, CSS and HTML as the markup langu
 ### Additional information on this project
 
 I used Parcel to run the application on the browser.
+
+### How to use the application
+
+The application uses Parcel as a bundler for the code.
+
+Steps on running the application with the help of Parcel
+
+1. step: npm install
+2. step: npm install --save-dev parcel
+3. step: npm run start (a script in my package.json file) -> this will run the code on localhost.
