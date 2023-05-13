@@ -8,6 +8,7 @@
 :root {
   font-size: 62.5%;
   font-family: 'Roboto', sans-serif;
+  /* overflow-x: hidden; */
   overflow: hidden;
 
   --white-color: #fff;
@@ -282,7 +283,7 @@ a {
 /* ----------------------------------------------- */
 
 .weather-section--weather__highlights {
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
 }
 
@@ -433,7 +434,7 @@ a {
 @media screen and (max-width: 670px) {
   .aside__output--box__img--box__text__degrees {
     font-size: 5.2rem;
-    margin-bottom: 0;
+    margin: 0;
   }
 
   .aside__input--box {
@@ -451,8 +452,51 @@ a {
   }
 }
 
+@media screen and (max-width: 615px) {
+  .aside__output--box__img--box__text__degrees {
+    margin: 0;
+  }
+}
+
 @media screen and (max-width: 560px) {
   .weather-section--weather__display--box--weather__day--box {
     gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  #aside {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  :root {
+    overflow-y: scroll;
+  }
+  body {
+    height: 100%;
+  }
+  #weather-section {
+    height: 100%;
+  }
+  .weather-section--weather__highlights--box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .aside__output--box__img--box__text {
+    flex-direction: column;
+  }
+  .weather-section--weather__display--box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .aside__output--box__img--box__text {
+    align-items: center;
+  }
+  .aside__output--box__img--box__text__location--box {
+    margin: 0;
   }
 }
