@@ -4,7 +4,7 @@ import * as helpers from './helpers.js';
 
 // global object with the valid data from the API call.
 export let state = {};
-const _KEY = '61956096fab848c5a78133732232204';
+
 /**
  *
  * @param {*} id
@@ -15,7 +15,7 @@ const _KEY = '61956096fab848c5a78133732232204';
 export const getWeatherApi = async function (id) {
   try {
     const data = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${helpers.API_KEY}&q=${id}&days=7&aqi=yes&alerts=no`
     );
 
     const json = await data.json();
