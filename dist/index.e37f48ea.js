@@ -699,9 +699,10 @@ parcelHelpers.export(exports, "addToLocalStorage", ()=>addToLocalStorage);
 var _helpersJs = require("./helpers.js");
 "use strict";
 let state = {};
+const _KEY = "61956096fab848c5a78133732232204";
 const getWeatherApi = async function(id) {
     try {
-        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_helpersJs._KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
+        const data = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${_KEY}&q=${id}&days=7&aqi=yes&alerts=no`);
         const json = await data.json();
         state = weatherObjectFunction(json);
         addToLocalStorage(state);
