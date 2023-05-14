@@ -15,7 +15,7 @@ export let state = {};
 export const getWeatherApi = async function (id) {
   try {
     const data = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${id}&days=7&aqi=yes&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${helpers.API_KEY}&q=${id}&days=7&aqi=yes&alerts=no`
     );
 
     const json = await data.json();
